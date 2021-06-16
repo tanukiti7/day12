@@ -1,0 +1,62 @@
+<h1>tags</h1>
+<% tags = NimbleSchool.Blog.all_tags()%>
+<%= for tag <- tags do %>
+<%= link tag, to: "/blog/tag/#{tag}"%>
+<%end%>
+
+
+
+
+
+<h1>Listing recent posts</h1>
+<%recent_posts = NimbleSchool.Blog.recent_posts(1) %>
+<%= for post <- recent_posts do %>
+ <div id="<%= post.id %>" style="margin-bottom: 3rem;">
+ <h2>
+ <%= link post.title, to: Routes.blog_path(@conn, :show, post)%>
+ </h2>
+ <p>
+ <time><%= post.date %></time> by <%= post.author %>
+ </p>
+ <p>
+ Tagged as <%= Enum.join(post.tags, ", ") %>
+ </p>
+ <%= raw post.description %>
+ </div>
+<% end %>
+
+
+
+<h1>Listing all posts</h1>
+<%= for post <- @posts do %>
+ <div id="<%= post.id %>" style="margin-bottom: 3rem;">
+ <h2>
+ <%= link post.title, to: Routes.blog_path(@conn, :show, post)%>
+ </h2>
+ <p>
+ <time><%= post.date %></time> by <%= post.author %>
+ </p>
+ <p>
+ Tagged as <%= Enum.join(post.tags, ", ") %>
+ </p>
+ <%= raw post.description %>
+ </div>
+<% end %>
+
+<h1>Listing all faqs</h1>
+<%  faqs = NimbleSchool.Faq.all_posts()
+%>
+<%= for post <- faqs do %>
+<div id="<%= post.id %>" style="margin-bottom: 3rem;">
+<h2>
+<%= link post.title, to: "/blog/faq/#{post.id}"%>
+</h2>
+<p>
+<time><%= post.date %></time> by <%= post.author %>
+</p>
+<p>
+Tagged as <%= Enum.join(post.tags, ", ") %>
+</p>
+<%= raw post.description %>
+</div>
+<% end %>
